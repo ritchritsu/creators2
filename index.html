@@ -543,7 +543,7 @@
       border-top: 1px solid var(--glass-border);
       border-bottom: 1px solid var(--glass-border);
     }
-    .clients-img { max-width: 100%; height: auto; margin: 0 auto; border-radius: var(--radius); }
+    .clients-img { display: block; width: 100%; height: auto; margin: 0 auto; border-radius: var(--radius); }
 
     /* QA SECTION */
     .qa-section { padding: 5rem 0 6rem; background: var(--base); }
@@ -1180,20 +1180,7 @@
         </button>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="num">500m<sup style="font-size:0.65em">2</sup></div>
-        <div class="desc">Workshop</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num">58+</div>
-        <div class="desc">Products</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num">2020</div>
-        <div class="desc">Founded</div>
-      </div>
-    </div>
+
   </section>
 
   <!-- Product Carousel -->
@@ -1762,8 +1749,14 @@
       img.alt = `Product ${i}`;
       img.loading = 'lazy';
       img.onerror = function() {
-        if (img.src.includes('.jpg')) { img.src = `/IMAGES/${i}.png`; }
-        else { div.style.display = 'none'; lbImages[idx] = null; }
+        if (!img.dataset.tried) {
+          img.dataset.tried = '1';
+          img.src = `/IMAGES/${i}.png`;
+          lbImages[idx] = `/IMAGES/${i}.png`;
+        } else {
+          div.style.display = 'none';
+          lbImages[idx] = null;
+        }
       };
       div.appendChild(img);
       grid.appendChild(div);
